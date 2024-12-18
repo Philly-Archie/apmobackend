@@ -4,6 +4,7 @@
 <head>
     <title>Sign Up</title>
 </head>
+
 {% block content %}
 <div class="center">
     <div class="form-container books-form">
@@ -15,7 +16,7 @@
             {% endfor %}
         </ul>
         {% endif %}
-        <p class="form-text">Already have an account ? <a href="/login">Login</a></p>
+        <p class="form-text">Already have an account ? <a href="/accounts/login">Login</a></p>
         <form method="POST" action="{% url 'signup' %}">
             {% csrf_token %}
             <div class="input-containter">
@@ -28,11 +29,23 @@
             </div>
             <div class="input-containter">
                 <label class="input-label" for="password1">Password: </label>
-                <input value="{{ password1 }}" class="input" id="password1" name="password1" type="password" />
+                <div style="position: relative;">
+                    <input value="{{ password1 }}" class="input" id="password1" name="password1" type="password" />
+                    <button type="button" id="toggle-password1" class="password-toggle" 
+                            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                        <img id="eye-icon1" src="{% static 'images/hidden.png' %}" alt="toggle visibility" style="height: 20px; width: 20px;" />
+                    </button>
+                </div>
             </div>
             <div class="input-containter">
                 <label class="input-label" for="password2"> Confirm Password: </label>
-                <input value="{{ password2 }}" class="input" id="password2" name="password2" type="password" />
+                <div style="position: relative;">
+                    <input value="{{ password2 }}" class="input" id="password2" name="password2" type="password" />
+                    <button type="button" id="toggle-password2" class="password-toggle" 
+                            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                        <img id="eye-icon2" src="{% static 'images/hidden.png' %}" alt="toggle visibility" style="height: 20px; width: 20px;" />
+                    </button>
+                </div>
             </div>
             <a class="form-text" href="/forgotpassword">Forgot Password </a>
             <br> <br>
@@ -42,4 +55,39 @@
         </form>
     </div>
 </div>
+
+<!-- Password Toggle Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // First Password Field
+        const passwordField1 = document.getElementById("password1");
+        const togglePassword1 = document.getElementById("toggle-password1");
+        const eyeIcon1 = document.getElementById("eye-icon1");
+
+        togglePassword1.addEventListener("click", function () {
+            if (passwordField1.type === "password") {
+                passwordField1.type = "text";
+                eyeIcon1.src = "{% static 'images/eye.png' %}"; 
+            } else {
+                passwordField1.type = "password";
+                eyeIcon1.src = "{% static 'images/hidden.png' %}";
+            }
+        });
+
+        // Second Password Field (Confirm Password)
+        const passwordField2 = document.getElementById("password2");
+        const togglePassword2 = document.getElementById("toggle-password2");
+        const eyeIcon2 = document.getElementById("eye-icon2");
+
+        togglePassword2.addEventListener("click", function () {
+            if (passwordField2.type === "password") {
+                passwordField2.type = "text";
+                eyeIcon2.src = "{% static 'images/eye.png' %}"; 
+            } else {
+                passwordField2.type = "password";
+                eyeIcon2.src = "{% static 'images/hidden.png' %}";
+            }
+        });
+    });
+</script>
 {% endblock %}

@@ -5,36 +5,59 @@
     <title>Login</title>
 </head>
 
- {% block content %}
-        <div class="center">
-            <div class="form-container books-form">
-                <h3 class="books-form-header">Login</h3>
-                {% if messages %}
-                <ul class="messages">
-                    {% for message in messages %}
-                    <li class="alert alert-error">{{ message }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-                <p class="form-text">Don't have an account ? <a href="/signup">Sign Up</a></p>
-                <form method="POST" action="{% url 'login' %}">
-                    {% csrf_token %}
-                    <div class="input-containter">
-                        <label class="input-label" for="books-title">Username: </label>
-                        <input value="{{ username }}" class="input" id="books-title" name="username" type="text" />
-                    </div>
-                    <div class="input-containter">
-                        <label class="input-label" for="books-author">Password: </label>
-                        <input value="{{ password }}" class="input" id="books-author" name="password" type="password" />
-                    </div>
-                    <a class="form-text" href="/reset_password">Forgot Password </a>
-                    <br> <br>
-                    <button>
-                        Submit
-                    </button>
-                </form>
+{% block content %}
+<div class="center">
+    <div class="form-container books-form">
+        <h3 class="books-form-header">Login</h3>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="alert alert-error">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <p class="form-text">Don't have an account? <a href="/signup">Sign Up</a></p>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="input-containter">
+                <label class="input-label" for="books-title">Username: </label>
+                <input value="{{ username }}" class="input" id="books-title" name="username" type="text" />
             </div>
-        </div>
-{% endblock %}
- 
+            <div class="input-containter">
+                <label class="input-label" for="books-author">Password: </label>
+                <div style="position: relative;">
+                    <input value="{{ password }}" class="input" id="password-field" name="password" type="password" />
+                    <button type="button" id="toggle-password" class="password-toggle" 
+                            style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer;">
+                        <img id="eye-icon" src="{% static 'images/hidden.png' %}" alt="toggle visibility" style="height: 20px; width: 20px;" />
+                    </button>
+                </div>
+            </div>
+            <a class="form-text" href="/reset_password">Forgot Password</a>
+            <br><br>
+            <button type="submit">
+                Submit
+            </button>
+        </form>
+    </div>
+</div>
 
+<!-- Password Toggle Script -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const passwordField = document.getElementById("password-field");
+        const togglePassword = document.getElementById("toggle-password");
+        const eyeIcon = document.getElementById("eye-icon");
+
+        togglePassword.addEventListener("click", function () {
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.src = "{% static 'images/eye.png' %}"; 
+            } else {
+                passwordField.type = "password";
+                eyeIcon.src = "{% static 'images/hidden.png' %}";
+            }
+        });
+    });
+</script>
+{% endblock %}
