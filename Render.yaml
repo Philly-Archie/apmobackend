@@ -2,7 +2,7 @@ databases:
   - name: mysitepostgresql
     plan: free
     databaseName: apmobackend
-    user: ''
+    user: apmobackend_user
 
 services:
   - type: web
