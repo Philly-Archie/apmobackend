@@ -11,7 +11,7 @@ from base_apmo.forms import SignUpForm
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializer import SermonSerializer, DevotionSerializer, EventsSerializer
+from .serializer import SermonSerializer, DevotionSerializer, EventsSerializer, CategorySerializer
 
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
@@ -312,15 +312,13 @@ def deleteSermon(request, pk):
 # Events and devotionals
 @login_required
 def events(request):
-    # categories = Category.objects.all()
-    # preachers = Preacher.objects.all()
-    # playlists = Playlist.objects.all()
-    # context = {
-    #     'categories' : categories,
-    #     'preachers' : preachers,
-    #     'playlists' : playlists,
-    # }
-    return render(request, 'events/events.html')
+    events = Event.objects.all()
+    devotionals = Devotional.objects.all()
+    context = {
+        'events': events,
+        'devotionals': devotionals
+    }
+    return render(request, 'events/events.html', context)
 
 @login_required
 def createDevotional(request):
@@ -431,6 +429,12 @@ class EventsListView(APIView):
     def get(self, request):
         events = Events.objects.all()
         serializer = EventsSerializer(events, many=True, context={'request': request})
+        return Response(serializer.data)
+
+class CategoryListView(APIView):
+    def get(self, request):
+        category = Category.objects.all()
+        serializer = CategorySerializer(category, many=True, context={'request': request})
         return Response(serializer.data)
 
 

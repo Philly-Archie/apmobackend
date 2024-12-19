@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Sermon, Devotion, Events
+from .models import Sermon, Devotion, Events, Category
 
 class SermonSerializer(serializers.ModelSerializer):
     bg_picture_url = serializers.SerializerMethodField()
@@ -47,4 +47,18 @@ class EventsSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if obj.event_thumbnail and request:
             return request.build_absolute_uri(obj.event_thumbnail.url)
+        return None
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    category_thumbnail_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+    def get_category_thumbnail_url(self, obj):
+        request = self.context.get('request')
+        if obj.category_thumbnail and request:
+            return request.build_absolute_uri(obj.category_thumbnail.url)
         return None

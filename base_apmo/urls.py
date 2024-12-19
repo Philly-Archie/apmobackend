@@ -4,7 +4,7 @@ from . import views
 
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import SermonListView, DownloadView, FavouriteView, BookmarkView, EventsView, DevotionView, DevotionListView, EventsListView
+from .views import SermonListView, DownloadView, FavouriteView, BookmarkView, EventsView, DevotionView, DevotionListView, EventsListView, CategoryListView
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -52,6 +52,7 @@ urlpatterns = [
     path('api/sermons/', SermonListView.as_view(), name='sermon-list'),
     path('api/devotions/', DevotionListView.as_view(), name='devotion-list'),
     path('api/events/', EventsListView.as_view(), name='events-list'),
+    path('api/category/', CategoryListView.as_view(), name='category-list'),
 ]
 
 if settings.DEBUG:
