@@ -1,0 +1,88 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Events and Devotions</h1>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li class="alert">{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<div class="">
+    <!-- Events Section -->
+    <h3>All Events</h3>
+    <a class="button-primary" href="{% url 'create_event' %}">Add A New Event</a>
+    <table class="books-table-container">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th class="table-responsive">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td>
+                    {{ event.title }}
+                    <div class="table-show-mobile">
+                        Date: {{ event.date|date:"F j, Y" }} <br>
+                        Description: {{ event.description }} <br>
+                        <div class="table-actions">
+                            <a href="{% url 'edit_event' event.id %}" class="edit-button">Edit</a>
+                            <a href="{% url 'delete_event' event.id %}" class="delete-button">Delete</a>
+                        </div>
+                    </div>
+                </td>
+                <td class="table-responsive">{{ event.date|date:"F j, Y" }}</td>
+                <td class="table-responsive">{{ event.description }}</td>
+                <td class="table-actions table-responsive">
+                    <a href="{% url 'edit_event' event.id %}" class="edit-button">Edit</a>
+                    <a href="{% url 'delete_event' event.id %}" class="delete-button">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Devotions Section -->
+    <h3>All Devotions</h3>
+    <a class="button-preacher" href="{% url 'create_devotional' %}">Add A New Devotion</a>
+    <table class="books-table-container">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Theme Scripture</th>
+                <th class="table-responsive">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for devotion in devotions %}
+            <tr>
+                <td>
+                    {{ devotion.title }}
+                    <div class="table-show-mobile">
+                        Theme Scripture: {{ devotion.theme_scripture }} <br>
+                        <div class="table-actions">
+                            <a href="{% url 'edit_devotional' devotion.id %}" class="edit-button">Edit</a>
+                            <a href="{% url 'delete_devotional' devotion.id %}" class="delete-button">Delete</a>
+                        </div>
+                    </div>
+                </td>
+                <td class="table-responsive">{{ devotion.theme_scripture }}</td>
+                <td class="table-actions table-responsive">
+                    <a href="{% url 'edit_devotional' devotion.id %}" class="edit-button">Edit</a>
+                    <a href="{% url 'delete_devotional' devotion.id %}" class="delete-button">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

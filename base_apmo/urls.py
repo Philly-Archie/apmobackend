@@ -28,6 +28,13 @@ urlpatterns = [
 
     # Events and devotionals
     path("events/", views.events, name="events"),
+    path('devotionals/create/', views.createDevotional, name='create_devotional'),
+    path('devotionals/edit/<int:pk>/', views.editDevotional, name='edit_devotional'),
+    path('devotionals/delete/<int:pk>/', views.deleteDevotional, name='delete_devotional'),
+    path('events/create/', views.createEvent, name='create_event'),
+    path('events/edit/<int:pk>/', views.editEvent, name='edit_event'),
+    path('events/delete/<int:pk>/', views.deleteEvent, name='delete_event'),
+
 
 
     path('downloads/<int:user_id>/', DownloadView.as_view(), name='downloads-list'),

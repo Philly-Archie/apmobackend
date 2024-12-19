@@ -11,7 +11,7 @@ from base_apmo.forms import SignUpForm
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializer import SermonSerializer
+from .serializer import SermonSerializer, DevotionSerializer, EventsSerializer
 
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
@@ -309,15 +309,123 @@ def events(request):
     # }
     return render(request, 'events/events.html')
 
+@login_required
+def createDevotional(request):
+    form = DevotionalForm()
+
+    if request.method == 'POST':
+        form = DevotionalForm(request.POST, request.FILES)
+        if form.is_valid():
+            messages.success(request, "Devotional has been created")
+            form.save()
+            return redirect('devotionals')
+        else:
+            for field, errors in form.errors.items():
+                print(f"{field}: {errors}")
+
+    return render(request, 'event/add_devotionals_form.html')
+
+@login_required
+def createEvent(request):
+    form = EventForm()
+
+    if request.method == 'POST':
+        form = EventForm(request.POST, request.FILES)
+        if form.is_valid():
+            messages.success(request, "Event has been created")
+            form.save()
+            return redirect('events')
+        else:
+            for field, errors in form.errors.items():
+                print(f"{field}: {errors}")
+
+    return render(request, 'events/add_events_form.html', context)
+
+
+@login_required(login_url='/login')
+def editDevotional(request, pk):
+    devotional = Devotional.objects.get(id=pk)
+    form = DevotionalForm(instance=devotional)
+
+    if request.method == 'POST':
+        form = DevotionalForm(request.POST, request.FILES, instance=devotional)
+        if form.is_valid():
+            messages.success(request, "Devotional has been edited")
+            form.save()
+            return redirect('devotionals')
+
+    context = {'form': form, 'devotional': devotional}
+    return render(request, 'events/edit_devotional.html', context)
+
+@login_required(login_url='/login')
+def editEvent(request, pk):
+    event = Event.objects.get(id=pk)
+    form = EventForm(instance=event)
+
+    if request.method == 'POST':
+        form = EventForm(request.POST, request.FILES, instance=event)
+        if form.is_valid():
+            messages.success(request, "Event has been edited")
+            form.save()
+            return redirect('events')
+
+    context = {'form': form, 'event': event}
+    return render(request, 'events/edit_event.html', context)
+
+
+@login_required(login_url='/login')
+def deleteDevotional(request, pk):
+    devotional = Devotional.objects.get(id=pk)
+
+    if request.method == 'POST':
+        devotional.delete()
+        messages.success(request, "Devotional has been deleted")
+        return redirect('devotionals')
+
+    context = {'devotional': devotional}
+    return render(request, 'events/delete_devotional.html', context)
+@login_required(login_url='/login')
+
+
+def deleteEvent(request, pk):
+    event = Event.objects.get(id=pk)
+
+    if request.method == 'POST':
+        event.delete()
+        messages.success(request, "Event has been deleted")
+        return redirect('events')
+
+    context = {'event': event}
+    return render(request, 'events/delete_event.html', context)
 
 
 
+################################
 # Api Views
 class SermonListView(APIView):
     def get(self, request):
         sermons = Sermon.objects.all()
         serializer = SermonSerializer(sermons, many=True, context={'request': request})
         return Response(serializer.data)
+
+class DevotionListView(APIView):
+    def get(self, request):
+        devotions = Devotion.objects.all()
+        serializer = DevotionSerializer(devotions, many=True, context={'request': request})
+        return Response(serializer.data)
+
+class EventsListView(APIView):
+    def get(self, request):
+        events = Events.objects.all()
+        serializer = EventsSerializer(events, many=True, context={'request': request})
+        return Response(serializer.data)
+
+
+#########################################
+# End of API views
+
+
+
 
 # Generic helper function for creating objects with duplicate checks
 def create_object(model, user, sermon_id):
@@ -455,3 +563,4 @@ class DevotionView(View):
             devotion_thumbnail=devotion_thumbnail
         )
         return JsonResponse({'message': 'Devotion created', 'id': devotion.id}, status=201)
+
