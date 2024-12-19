@@ -28,9 +28,9 @@
                 <label class="input-label" for="preacher">Preacher: </label>
                 <select class="input" id="preacher" name="preacher" required>
                     {% for preacher in preachers %}
-                    <option value="{{ preacher.id }}">
+                    <option value="{{ preacher.id }}" {% if preacher.id == sermon.preacher.id %}selected{% endif %}>
                         {{ preacher.name }}
-                    </option>
+                    </option>                    
                     {% endfor %}
                 </select>
             </div>
@@ -62,18 +62,17 @@
                 />
             </div>
 
-            <!-- Audio File URL Field -->
-            <div class="input-containter">
-                <label class="input-label" for="audio_file_url">Audio File URL: </label>
-                <input
-                    class="input"
-                    id="audio_file_url"
-                    name="audio_file_url"
-                    type="url"
-                    value="{{ sermon.audio_file_url }}"
-                    required
-                />
+            <!-- Audio File -->
+            <div class="input-container">
+                <label class="input-label" for="audio_file">Audio File:</label>
+                {% if sermon.audio_file %}
+                <div>
+                    <p>Current File: <a href="{{ sermon.audio_file.url }}" target="_blank">{{ sermon.audio_file.name }}</a></p>
+                </div>
+                {% endif %}
+                <input class="input" id="audio_file" name="audio_file" type="file" accept="audio/*" />
             </div>
+
 
             <!-- Description Field -->
             <div class="input-containter">
@@ -92,9 +91,9 @@
                 <label class="input-label" for="category">Category: </label>
                 <select class="input" id="category" name="category" required>
                     {% for category in categories %}
-                    <option value="{{ category.id }}">
+                    <option value="{{ category.id }}" {% if category.id == sermon.category.id %}selected{% endif %}>
                         {{ category.name }}
-                    </option>
+                    </option>                    
                     {% endfor %}
                 </select>
             </div>
@@ -104,9 +103,7 @@
                 <label class="input-label" for="playlists">Playlists: </label>
                 <select class="input" id="playlists" name="playlists">
                     {% for playlist in playlists %}
-                    <option
-                        value="{{ playlist.id }}"
-                    >
+                    <option value="{{ playlist.id }}" {% if playlist.id == sermon.playlists.id %}selected{% endif %}>
                         {{ playlist.name }}
                     </option>
                     {% endfor %}
@@ -130,6 +127,11 @@
                 <label class="input-label" for="bg_picture">Background Image: </label>
                 <input class="input" id="bg_picture" name="bg_picture" type="file" />
             </div>
+
+            <!-- Hidden Fields for play_count and likes_count -->
+            <input type="hidden" name="play_count" value="{{ form.play_count.value|default:0 }}" />
+            <input type="hidden" name="likes_count" value="{{ form.likes_count.value|default:0 }}" />
+
 
             <!-- Submit Button -->
             <button type="submit">Save Changes</button>

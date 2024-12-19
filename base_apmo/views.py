@@ -269,18 +269,31 @@ def deletePlaylist(request, pk):
 @login_required
 def editSermon(request, pk):
     sermon = Sermon.objects.get(id=pk)
-    context = {
-        'sermon' : sermon,
-    }
+    preachers = Preacher.objects.all()
+    categories = Category.objects.all()
+    playlists = Playlist.objects.all()
 
     if request.method == "POST":
-        form = SermonForm(request.POST, instance=sermon)
+        form = SermonForm(request.POST, request.FILES, instance=sermon)
         if form.is_valid():
-            messages.success(request, "Sermon has been edited successfully")
             form.save()
+            messages.success(request, "Sermon has been edited successfully")
             return redirect("home")
-        
+        else:
+            print("Form errors:", form.errors)  # Debugging form errors
+    else:
+        form = SermonForm(instance=sermon)
+
+    context = {
+        'sermon': sermon,
+        'preachers': preachers,
+        'categories': categories,
+        'playlists': playlists,
+        'form': form,
+    }
+
     return render(request, "sermons/edit_sermons.html", context)
+
 
 
 @login_required(login_url='/login')
