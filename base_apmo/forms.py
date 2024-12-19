@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 
-from .models import Category, Preacher, Playlist, Sermon
+from .models import Category, Preacher, Playlist, Sermon, Bookmark, Favourite, Events, Devotion
 
 
 class SignUpForm(UserCreationForm):
@@ -33,4 +33,25 @@ class PlaylistForm(ModelForm):
 class SermonForm(ModelForm):
     class Meta:
         model = Sermon
+        fields = '__all__'
+
+
+class FavouriteForm(ModelForm):
+    class Meta:
+        model = Favourite
+        fields = '__all__'
+
+class BookmarkForm(ModelForm):
+    class Meta:
+        model = Bookmark
+        fields = '__all__'
+
+class EventsForm(ModelForm):
+    class Meta:
+        model = Events
+        fields = '__all__'
+
+class DevotionForm(ModelForm):
+    class Meta:
+        model = Devotion
         fields = '__all__'

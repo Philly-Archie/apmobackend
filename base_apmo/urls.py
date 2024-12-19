@@ -5,6 +5,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import SermonListView
+from .views import SermonListView, DownloadView, FavouriteView, BookmarkView, EventsView, DevotionView
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -24,6 +25,21 @@ urlpatterns = [
     path('sermons/delete-playlist/<str:pk>/', views.deletePlaylist, name='delete_playlist'),
     path('sermons/edit-sermon/<str:pk>/', views.editSermon, name='edit_sermon'),
     path('sermons/delete-sermon/<str:pk>/', views.deleteSermon, name='delete_sermon'),
+
+    # Events and devotionals
+    path("events/", views.events, name="events"),
+
+
+    path('downloads/<int:user_id>/', DownloadView.as_view(), name='downloads-list'),
+    path('downloads/<int:user_id>/<int:sermon_id>/', DownloadView.as_view(), name='download-add'),
+    path('favourites/<int:user_id>/', FavouriteView.as_view(), name='favourites-list'),
+    path('favourites/<int:user_id>/<int:sermon_id>/', FavouriteView.as_view(), name='favourite-add'),
+    path('bookmarks/<int:user_id>/', BookmarkView.as_view(), name='bookmarks-list'),
+    path('bookmarks/<int:user_id>/<int:sermon_id>/', BookmarkView.as_view(), name='bookmark-add'),
+    path('events/', EventsView.as_view(), name='events-list'),
+    path('events/create/', EventsView.as_view(), name='event-create'),
+    path('devotions/', DevotionView.as_view(), name='devotions-list'),
+    path('devotions/create/', DevotionView.as_view(), name='devotion-create'),
 
 
     # Api Urls
