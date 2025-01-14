@@ -4,7 +4,7 @@
 <div class="center">
     <div class="form-container books-form">
         <h3 class="books-form-header">Update Playlist</h3>
-        <form method="post" action="{% url 'edit_playlist' playlist.id %}">
+        <form method="post" action="">
             {% csrf_token %}
             <div class="input-containter">
                 <label class="input-label" for="playlist-name">Name: </label>
