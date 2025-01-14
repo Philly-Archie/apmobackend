@@ -14,9 +14,18 @@ from pathlib import Path
 import os
 import dj_database_url
 from decouple import config
+from google.cloud import firestore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+import firebase_admin
+from firebase_admin import credentials, firestore
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "D:/Project Work/Projects/Flutter/apmobackend/apmobackend/serviceKey.json"
+cred = credentials.Certificate(os.path.join(BASE_DIR, "apmobackend/serviceKey.json"))
+
+firebase_admin.initialize_app(cred)
+db = firestore.client()
 
 
 # Quick-start development settings - unsuitable for production
@@ -92,16 +101,16 @@ WSGI_APPLICATION = 'apmobackend.wsgi.application'
 
 
 
-DATABASES = {
-    'default': dj_database_url.parse(config("DATABASE_URL"))
-}
-# else:
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
+#     'default': dj_database_url.parse(config("DATABASE_URL"))
 # }
+# else:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # Password validation

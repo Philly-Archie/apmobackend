@@ -3,8 +3,15 @@
 {% block content %}
 <div class="center">
     <div class="form-container books-form">
+        {% if category.category_thumbnail %}
+        <div style="text-align: center;">
+            <p>
+                <img src="{{ category.category_thumbnail.url }}" alt="Category Picture" height="200" style="border-radius: 20%;"/>
+            </p>
+        </div>
+        {% endif %}
         <h3 class="books-form-header">Update Category</h3>
-        <form method="post" action="{% url 'edit_category' category.id %}">
+        <form method="post" action="">
             {% csrf_token %}
             <div class="input-containter">
                 <label class="input-label" for="category-name">Name: </label>
@@ -13,6 +20,10 @@
             <div class="input-containter">
                 <label class="input-label" for="category-description">Description: </label>
                 <textarea class="input" id="category-description" name="description">{{ category.description }}</textarea>
+            </div>
+            <div class="input-containter">
+                <label class="input-label" for="category_thumbnail">Category Picture: </label>
+                <input class="input" id="category_thumbnail" name="category_thumbnail" type="file" />
             </div>
             <button class="submit-button">
                 Update Category

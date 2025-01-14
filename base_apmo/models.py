@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 class Sermon(models.Model):
-    title = models.CharField(max_length=255, verbose_name=_("Title"))
+    title = models.CharField(max_length=255)
     preacher = models.ForeignKey(
         'Preacher', on_delete=models.CASCADE, related_name="sermons", verbose_name=_("Preacher")
     )

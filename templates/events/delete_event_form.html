@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="center">
+    <div class="books-form delete-form-container">
+        <h3>Are you sure you want to delete {{ event.title }} ? </h3>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="delete-button-container">
+                <a href="{{ request.META.HTTP_REFERER }}" class="edit-button">Go Back</a>
+                <button class="delete-button">Delete Event</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

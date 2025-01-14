@@ -4,7 +4,7 @@
 <div class="center">
     <div class="form-container books-form">
         <h3 class="books-form-header">Add A New Category</h3>
-        <form method="post" action="">
+        <form method="post" action="" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="input-containter">
                 <label class="input-label" for="name">Name: </label>
@@ -15,6 +15,12 @@
                 <label class="input-label" for="description">Description: </label>
                 <textarea class="input" id="description" name="description"></textarea>
             </div>
+
+            <div class="input-containter">
+                <label class="input-label" for="profile_picture">Profile Picture: </label>
+                <input class="input" id="profile_picture" name="profile_picture" type="file" />
+            </div>
+
             <button>
                 Submit
             </button>

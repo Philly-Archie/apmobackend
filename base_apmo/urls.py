@@ -4,7 +4,7 @@ from . import views
 
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import SermonListView, DownloadView, FavouriteView, BookmarkView, EventsView, DevotionView, DevotionListView, EventsListView, CategoryListView
+from .views import SermonListView, DownloadView, FavouriteView, BookmarkView, EventsView, DevotionView, DevotionalListView, EventsListView, CategoryListView, PlaylistListView, PreacherListView
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -28,11 +28,11 @@ urlpatterns = [
     # Events and devotionals
     path("events/", views.events, name="events"),
     path('devotionals/create/', views.createDevotional, name='create_devotional'),
-    path('devotionals/edit/<int:pk>/', views.editDevotional, name='edit_devotional'),
-    path('devotionals/delete/<int:pk>/', views.deleteDevotional, name='delete_devotional'),
+    path('devotionals/edit/<str:pk>/', views.editDevotional, name='edit_devotional'),
+    path('devotionals/delete/<str:pk>/', views.deleteDevotional, name='delete_devotional'),
     path('events/create/', views.createEvent, name='create_event'),
-    path('events/edit/<int:pk>/', views.editEvent, name='edit_event'),
-    path('events/delete/<int:pk>/', views.deleteEvent, name='delete_event'),
+    path('events/edit/<str:pk>/', views.editEvent, name='edit_event'),
+    path('events/delete/<str:pk>/', views.deleteEvent, name='delete_event'),
 
 
 
@@ -50,9 +50,11 @@ urlpatterns = [
 
     # Api Urls
     path('api/sermons/', SermonListView.as_view(), name='sermon-list'),
-    path('api/devotions/', DevotionListView.as_view(), name='devotion-list'),
+    path('api/devotionals/', DevotionalListView.as_view(), name='devotion-list'),
     path('api/events/', EventsListView.as_view(), name='events-list'),
-    path('api/category/', CategoryListView.as_view(), name='category-list'),
+    path('api/categories/', CategoryListView.as_view(), name='category-list'),
+    path('api/playlists/', PlaylistListView.as_view(), name='category-list'),
+    path('api/preachers/', PreacherListView.as_view(), name='category-list'),
 ]
 
 if settings.DEBUG:

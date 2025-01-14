@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="center">
+    <div class="form-container books-form">
+        <h3 class="books-form-header">Update Devotional</h3>
+        <form method="post" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Title Field -->
+            <div class="input-container">
+                <label class="input-label" for="devotion-title">Title:</label>
+                <input value="{{ devotional.title }}" class="input" id="devotion-title" name="title" type="text" required />
+            </div>
+
+            <!-- Theme Scripture Field -->
+            <div class="input-container">
+                <label class="input-label" for="devotion-theme-scripture">Theme Scripture:</label>
+                <textarea class="input" id="devotion-theme-scripture" name="theme_scripture" rows="3" required>{{ devotional.theme_scripture }}</textarea>
+            </div>
+
+            <!-- Content Field -->
+            <div class="input-container">
+                <label class="input-label" for="devotion-content">Content:</label>
+                <textarea class="input" id="devotion-content" name="content" rows="10" required>{{ devotional.content }}</textarea>
+            </div>
+
+            <!-- Current Thumbnail Preview -->
+            <div class="input-container">
+                <label class="input-label">Current Thumbnail:</label>
+                <div>
+                    <img src="{{ devotional.devotion_thumbnail_url }}" alt="Devotional Thumbnail" style="max-width: 200px; max-height: 150px;" />
+                </div>
+            </div>
+
+            <!-- Upload New Thumbnail -->
+            <div class="input-container">
+                <label class="input-label" for="devotion-thumbnail">Change Thumbnail (optional):</label>
+                <input class="input" id="devotion-thumbnail" name="devotion_thumbnail" type="file" accept="image/*" />
+            </div>
+
+            <!-- Submit Button -->
+            <button class="submit-button">
+                Update Devotional
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

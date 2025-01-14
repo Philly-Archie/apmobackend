@@ -1,0 +1,41 @@
+    {% extends 'main.html' %}
+
+    {% block content %}
+    <div class="center">
+        <div class="form-container books-form">
+            <h3 class="books-form-header">Update Event</h3>
+            <form method="post" action="">
+                {% csrf_token %}
+                
+                <!-- Event Title Field -->
+                <div class="input-containter">
+                    <label class="input-label" for="event-title">Title: </label>
+                    <input value="{{ event.title }}" class="input" id="event-title" name="title" type="text" required />
+                </div>
+                
+                <!-- Event Date Field -->
+                <div class="input-containter">
+                    <label class="input-label" for="event-date">Date: </label>
+                    <input value="{{ event.date }}" class="input" id="event-date" name="date" type="date" required />
+                </div>
+                
+                <!-- Event Location Field -->
+                <div class="input-containter">
+                    <label class="input-label" for="event-location">Link: </label>
+                    <input value="{{ event.link }}" class="input" id="event-link" name="link" type="text" required />
+                </div>
+                
+                <!-- Event Description Field -->
+                <div class="input-containter">
+                    <label class="input-label" for="event-description">Description: </label>
+                    <textarea class="input" id="event-description" name="description" rows="5" required>{{ event.description }}</textarea>
+                </div>
+                
+                <!-- Submit Button -->
+                <button class="submit-button">
+                    Update Event
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endblock %}

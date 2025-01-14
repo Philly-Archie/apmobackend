@@ -40,7 +40,7 @@
             <tr>
                 <th>Image</th>
                 <th>Title</th>
-                <th>Playlist</th>
+                <!-- <th>Playlist</th> -->
                 <th>Category</th>
                 <th>Preacher</th>
                 <th>Date Published</th>
@@ -78,13 +78,13 @@
                         </div>
                     </div>
                 </td>
-                <td class="table-responsive">
+                <!-- <td class="table-responsive">
                     {% for playlist in sermon.playlists.all %}
                         <p>{{ playlist.name }}</p>
                     {% empty %}
                         <p>No playlist</p>
                     {% endfor %}
-                </td>
+                </td> -->
                 <td class="table-responsive">{{ sermon.category.name }}</td>
                 <td class="table-responsive">{{ sermon.preacher.name }}</td>
                 <td class="table-responsive">{{ sermon.date_published }}</td>

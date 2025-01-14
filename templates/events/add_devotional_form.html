@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="center">
+    <div class="form-container books-form">
+        <h3 class="books-form-header">Add A New Devotional</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Title Field -->
+            <div class="input-container">
+                <label class="input-label" for="title">Title: </label>
+                <input class="input" id="title" name="title" type="text" required />
+            </div>
+
+            <!-- Theme Scripture Field -->
+            <div class="input-container">
+                <label class="input-label" for="theme_scripture">Theme Scripture: </label>
+                <input class="input" id="theme_scripture" name="theme_scripture" type="text" placeholder="e.g., Acts 1:6-8 NKJV" required />
+            </div>
+
+            <!-- Content Field -->
+            <div class="input-container">
+                <label class="input-label" for="content">Content: </label>
+                <textarea class="input" id="content" name="content" rows="10" required></textarea>
+            </div>
+
+            <!-- Thumbnail Field -->
+            <div class="input-container">
+                <label class="input-label" for="devotion_thumbnail">Devotional Thumbnail: </label>
+                <input class="input" id="devotion_thumbnail" name="devotion_thumbnail" type="file" accept="image/*" />
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

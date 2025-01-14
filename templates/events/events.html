@@ -1,3 +1,6 @@
+
+
+
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
@@ -19,6 +22,7 @@
     <table class="books-table-container">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Title</th>
                 <th>Date</th>
                 <th>Description</th>
@@ -29,19 +33,16 @@
             {% for event in events %}
             <tr>
                 <td>
-                    {{ event.title }}
-                    <div class="table-show-mobile">
-                        Date: {{ event.date|date:"F j, Y" }} <br>
-                        Description: {{ event.description }} <br>
-                        <div class="table-actions">
-                            <a href="{% url 'edit_event' event.id %}" class="edit-button">Edit</a>
-                            <a href="{% url 'delete_event' event.id %}" class="delete-button">Delete</a>
-                        </div>
-                    </div>
+                    {% if event.image_url %}
+                    <img src="{{ event.event_thumbnail }}" alt="{{ event.title }}" class="table-image">
+                    {% else %}
+                    <img src="{% static 'images/default.png' %}" alt="No Image" class="table-image">
+                    {% endif %}
                 </td>
-                <td class="table-responsive">{{ event.date|date:"F j, Y" }}</td>
-                <td class="table-responsive">{{ event.description }}</td>
-                <td class="table-actions table-responsive">
+                <td>{{ event.title }}</td>
+                <td>{{ event.date|date:"F j, Y" }}</td>
+                <td>{{ event.description }}</td>
+                <td class="table-actions">
                     <a href="{% url 'edit_event' event.id %}" class="edit-button">Edit</a>
                     <a href="{% url 'delete_event' event.id %}" class="delete-button">Delete</a>
                 </td>
@@ -56,26 +57,25 @@
     <table class="books-table-container">
         <thead>
             <tr>
+                <th>Thumbnail</th>
                 <th>Title</th>
                 <th>Theme Scripture</th>
                 <th class="table-responsive">Actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for devotion in devotions %}
+            {% for devotion in devotionals %}
             <tr>
                 <td>
-                    {{ devotion.title }}
-                    <div class="table-show-mobile">
-                        Theme Scripture: {{ devotion.theme_scripture }} <br>
-                        <div class="table-actions">
-                            <a href="{% url 'edit_devotional' devotion.id %}" class="edit-button">Edit</a>
-                            <a href="{% url 'delete_devotional' devotion.id %}" class="delete-button">Delete</a>
-                        </div>
-                    </div>
+                    {% if devotion.devotion_thumbnail_url %}
+                    <img src="{{ devotion.devotion_thumbnail_url }}" alt="{{ devotion.title }}" class="table-image">
+                    {% else %}
+                    <img src="{% static 'images/default.png' %}" alt="No Thumbnail" class="table-image">
+                    {% endif %}
                 </td>
-                <td class="table-responsive">{{ devotion.theme_scripture }}</td>
-                <td class="table-actions table-responsive">
+                <td>{{ devotion.title }}</td>
+                <td>{{ devotion.theme_scripture }}</td>
+                <td class="table-actions">
                     <a href="{% url 'edit_devotional' devotion.id %}" class="edit-button">Edit</a>
                     <a href="{% url 'delete_devotional' devotion.id %}" class="delete-button">Delete</a>
                 </td>
@@ -84,5 +84,6 @@
         </tbody>
     </table>
 </div>
+
 
 {% endblock %}

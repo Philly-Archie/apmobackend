@@ -1,0 +1,45 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="center">
+    <div class="form-container books-form">
+        <h3 class="books-form-header">Add A New Event</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Title Field -->
+            <div class="input-containter">
+                <label class="input-label" for="title">Title: </label>
+                <input class="input" id="title" name="title" type="text" required />
+            </div>
+
+            <!-- Date Field -->
+            <div class="input-containter">
+                <label class="input-label" for="date">Date: </label>
+                <input class="input" id="date" name="date" type="date" required />
+            </div>
+
+            <!-- Description Field -->
+            <div class="input-containter">
+                <label class="input-label" for="description">Description: </label>
+                <textarea class="input" id="description" name="description" required></textarea>
+            </div>
+
+            <!-- Link Field -->
+            <div class="input-containter">
+                <label class="input-label" for="link">Link: </label>
+                <textarea class="input" id="link" name="link" placeholder="Optional additional details"></textarea>
+            </div>
+
+            <!-- Image Thumbnail Field -->
+            <div class="input-containter">
+                <label class="input-label" for="event_thumbnail">Event Thumbnail: </label>
+                <input class="input" id="event_thumbnail" name="event_thumbnail" type="file" accept="image/*" />
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
