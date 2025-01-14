@@ -11,7 +11,7 @@
         </div>
         {% endif %}
         <h3 class="books-form-header">Update Preacher</h3>
-        <form method="post" action="{% url 'edit_preacher' preacher.id %}" enctype="multipart/form-data">
+        <form method="post" action="" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="input-containter">
                 <label class="input-label" for="preacher-name">Name: </label>
