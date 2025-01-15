@@ -21,9 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 import firebase_admin
 from firebase_admin import credentials, firestore
-# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "D:/Project Work/Projects/Flutter/apmobackend/apmobackend/serviceKey.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "D:/Project Work/Projects/Flutter/apmobackend/apmobackend/serviceKey.json"
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "serviceKey.json"
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "serviceKey.json"
 cred = credentials.Certificate(os.path.join(BASE_DIR, "apmobackend/serviceKey.json"))
 firebase_admin.initialize_app(cred)
 db = firestore.client()
