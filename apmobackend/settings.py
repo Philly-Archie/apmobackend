@@ -15,44 +15,17 @@ import os
 import dj_database_url
 from decouple import config
 from google.cloud import firestore
-import json
-import firebase_admin
-from firebase_admin import credentials, firestore
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import firebase_admin
+from firebase_admin import credentials, firestore
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "D:/Project Work/Projects/Flutter/apmobackend/apmobackend/serviceKey.json"
 
-
-# cred_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-# cred = credentials.Certificate(cred_path)
-
-
-# Get the JSON content from an environment variable
-service_key_content = os.getenv("FIREBASE_CREDENTIALS_JSON")
-
-if not service_key_content:
-    raise ValueError("FIREBASE_CREDENTIALS_JSON is not set or is empty.")
-
-# Set the path for the credentials file
-service_key_path = "/tmp/serviceKey.json"  # /tmp is writable on Render
-
-# Write the JSON content to the file
-with open(service_key_path, "w") as f:
-    f.write(service_key_content)
-
-# Set the GOOGLE_APPLICATION_CREDENTIALS environment variable to this path
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_key_path
-
-# Initialize Firebase Admin
-from firebase_admin import credentials, initialize_app
-
-cred = credentials.Certificate(service_key_path)
-initialize_app(cred)
-
-
-
-# firebase_admin.initialize_app(cred)
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "serviceKey.json"
+cred = credentials.Certificate(os.path.join(BASE_DIR, "apmobackend/serviceKey.json"))
+firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
