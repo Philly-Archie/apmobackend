@@ -89,7 +89,11 @@ def loginPage(request):
 
     return render(request, 'auth/login.html', context)
 
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 5f4bacf82598a096119efb867312b400891c1ae3
 
 @login_required
 def home(request):
@@ -126,15 +130,19 @@ def categories(request):
 def createCategory(request):
     form = CategoryForm
     if request.method == 'POST':
-        form = CategoryForm(request.POST, request.FILES)
+        form = CategoryForm(request.POST)
         if form.is_valid():
             messages.success(request, "Category has been created")
             form.save()
             return redirect('categories')
+<<<<<<< HEAD
         else:
             messages.error(request, "Please correct the errors below.")
 
     return render(request, 'sermons/add_category_form.html', {'form' : form})
+=======
+    return render(request, 'sermons/add_category_form.html')
+>>>>>>> 5f4bacf82598a096119efb867312b400891c1ae3
 
 
 @login_required
@@ -148,7 +156,7 @@ def createPreacher(request):
             return redirect('categories')
         else:
             messages.error(request, "Please correct the errors below.")
-
+    
     return render(request, 'sermons/add_preacher_form.html', {'form': form})
 
 
@@ -194,7 +202,11 @@ def createSermon(request):
                 print(f"{field}: {errors}")
     else:
         form = SermonForm()
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 5f4bacf82598a096119efb867312b400891c1ae3
     return render(request, 'sermons/add_sermons_form.html', context)
 
 
@@ -206,10 +218,17 @@ def editCategory(request, pk):
     }
 
     if request.method == 'POST':
+<<<<<<< HEAD
         form = CategoryForm(request.POST, request.FILES, instance=category)
         if form.is_valid():
             form.save()
             messages.success(request, "Category has been edited")
+=======
+        form = CategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            messages.success(request, "Category has been edited")
+            form.save()
+>>>>>>> 5f4bacf82598a096119efb867312b400891c1ae3
             return redirect('categories')
     return render(request, 'sermons/edit_category.html', context)
 
@@ -235,12 +254,21 @@ def editPreacher(request, pk):
     }
 
     if request.method == "POST":
+<<<<<<< HEAD
         form = CategoryForm(request.POST, request.FILES, instance=preacher)
         if form.is_valid():
             form.save()
             messages.success(request, "Preacher has been edited successfully")
             return redirect("categories")
 
+=======
+        form = CategoryForm(request.POST, instance=preacher)
+        if form.is_valid():
+            messages.success(request, "Preacher has been edited successfully")
+            form.save()
+            return redirect("categories")
+        
+>>>>>>> 5f4bacf82598a096119efb867312b400891c1ae3
     return render(request, "sermons/edit_preacher.html", context)
 
 
@@ -270,7 +298,11 @@ def editPlaylist(request, pk):
             messages.success(request, "Playlist has been edited successfully")
             form.save()
             return redirect("categories")
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 5f4bacf82598a096119efb867312b400891c1ae3
     return render(request, "sermons/edit_playlist.html", context)
 
 
@@ -373,7 +405,7 @@ def createEvent(request):
             return redirect('events')
         else:
             for field, errors in form.errors.items():
-                print(f"{field}: {errors}")
+                print(f"{field}: {errors}") 
 
     return render(request, 'events/add_event_form.html')
 
@@ -469,7 +501,11 @@ class PreacherListView(APIView):
         preachers=Preacher.objects.all()
         serializer = PreacherSerializer(preachers, many=True, context={'request': request})
         return Response(serializer.data)
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> 5f4bacf82598a096119efb867312b400891c1ae3
 class PlaylistListView(APIView):
     def get(self, request):
         playlists = Playlist.objects.all()
