@@ -224,7 +224,7 @@ SECRET_KEY = 'django-insecure-+pjy9-%=sbue##62)7f&j%!ab9&lz12c(*m^60^jnwibzxqxol
 # ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 
 DEBUG = True
-ALLOWED_HOSTS = ['whsermons.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['whsermons.pythonanywhere.com', '127.0.0.1', '13.60.168.34']
 # settings.py
 DATA_UPLOAD_MAX_MEMORY_SIZE = 1073741824  # 1 GB
 FILE_UPLOAD_MAX_MEMORY_SIZE = 1073741824  # 1 GB
