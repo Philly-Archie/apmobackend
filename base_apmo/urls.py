@@ -53,8 +53,8 @@ urlpatterns = [
     path('api/devotionals/', DevotionalListView.as_view(), name='devotion-list'),
     path('api/events/', EventsListView.as_view(), name='events-list'),
     path('api/categories/', CategoryListView.as_view(), name='category-list'),
-    path('api/playlists/', PlaylistListView.as_view(), name='category-list'),
-    path('api/preachers/', PreacherListView.as_view(), name='category-list'),
+    path('api/playlists/', PlaylistListView.as_view(), name='playlist-list'),
+    path('api/preachers/', PreacherListView.as_view(), name='preacher-list'),
 ]
 
 if settings.DEBUG:
