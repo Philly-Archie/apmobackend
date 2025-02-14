@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-+pjy9-%=sbue##62)7f&j%!ab9&lz12c(*m^60^jnwibzxqxol
 
 # ALLOWED_HOSTS = config("ALLOWED_HOSTS").split(",")
 
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['whsermons.pythonanywhere.com', '127.0.0.1', '13.60.168.34']
 
 
@@ -117,7 +117,7 @@ DATABASES = {
         'NAME': 'apmobackend',
         'USER': 'postgres',
         'PASSWORD': 'apmobackendpwd',
-        'HOST': 'localhost',
+        'HOST': 'apmobackend.cxqwsy0awys9.eu-north-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
